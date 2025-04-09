@@ -43,16 +43,16 @@ const Homepage = () => {
   }, []);
 
   const images = [
-    '/img-0.jpeg',
-    '/img-1.jpeg',
-    '/img-2.jpeg',
-    '/img-3.jpeg',
-    '/img-4.jpeg',
-    '/img-5.jpeg',
-    '/img-6.jpeg',
-    '/img-7.jpeg',
-    '/img-8.jpeg',
-    '/img-9.jpeg',
+    '/img-0.jpg',
+    '/img-1.jpg',
+    '/img-2.jpg',
+    '/img-3.jpg',
+    '/img-4.jpg',
+    '/img-5.jpg',
+    '/img-6.jpg',
+    '/img-7.jpg',
+    '/img-8.jpg',
+    '/img-9.jpg',
     '/bannerpic.jpg',
   ];
 
@@ -132,21 +132,21 @@ const Homepage = () => {
           </CarouselButton>
         </CarouselContainer>
 
-        <GroupName>Stino Le Thwenny</GroupName>
+        <GroupName>Zee Nxumalo</GroupName>
         <Description> <Descriptions /> </Description>
 
         <ButtonWrapper>
           <button onClick={() => setStreamModalOpen(true)}>Stream</button>
-          <button onClick={() => setFollowModalOpen(true)}>Follow Us</button>
+          <button onClick={() => setFollowModalOpen(true)}>Follow Me</button>
         </ButtonWrapper>
 
         {isStreamModalOpen && (
           <Modal onClick={() => setStreamModalOpen(false)}>
             <ModalContent>
-              <Icon href="https://open.spotify.com/artist/5kicxKGLnJF6uG0pgb0F3m" target="_blank">
+              <Icon href="https://open.spotify.com/artist/5m5lgddffBHA2pv0m5E2Ro" target="_blank">
                 Spotify
               </Icon>
-              <Icon href="https://music.apple.com/us/artist/stino-le-thwenny/1444686993" target="_blank">
+              <Icon href="https://music.apple.com/mt/artist/zee-nxumalo/1606439969" target="_blank">
                 Apple Music
               </Icon>
             </ModalContent>
@@ -156,10 +156,10 @@ const Homepage = () => {
         {isFollowModalOpen && (
           <Modal onClick={() => setFollowModalOpen(false)}>
             <ModalContent>
-              <Icon href="https://web.facebook.com/p/Stino-Le-Thwenny-100057116782979/?_rdc=1&_rdr" target="_blank">
+              <Icon href="https://www.facebook.com/zeenxumaloza/" target="_blank">
                 Facebook
               </Icon>
-              <Icon href="https://www.instagram.com/stino_le_thwenny/" target="_blank">
+              <Icon href="https://www.instagram.com/zeenxumalo_/?hl=en" target="_blank">
                 Instagram
               </Icon>
             </ModalContent>

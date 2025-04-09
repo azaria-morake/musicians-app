@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from './Layout';
+import { lyrics } from '../data/lyrics-data';
 import {
   AboutUsContainer,
-  WikipediaContainer,
+  LyricsContainer,
   Header,
   VideoCarouselContainer,
   VideoCarouselWrapper,
@@ -14,29 +15,33 @@ import {
   YouTubeModal,
   YouTubeModalContent,
   CloseButton,
-  WikiImage,
-  CenteredParagraph,
-  SectionHeading,
-  UnstyledList,
-  ListItem,
-  StrongText,
-  Paragraph,
+  LyricsGrid,
+  SongTile,
+  SongImage,
+  SongInfo,
+  LyricsModal,
+  LyricsModalContent,
+  LyricsHeader,
+  LyricsBody,
+  ShareButton,
+  SocialIcons,
+  MobileDiv,
 } from './AboutUsStyles';
 
 const AboutUs = () => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedLyric, setSelectedLyric] = useState(null);
   const [translateX, setTranslateX] = useState(0);
-
+  const [showSocial, setShowSocial] = useState(false);
 
   const youtubeApiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
   const CHANNEL_NAME = 'StinoLeThwenny';
 
-  // Fetch videos from the YouTube channel
+  // Fetch videos from YouTube channel
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        // Get the channel ID using the channel name
         const channelResponse = await axios.get(
           `https://www.googleapis.com/youtube/v3/search`,
           {
@@ -51,22 +56,20 @@ const AboutUs = () => {
 
         const channelId = channelResponse.data.items[0].id.channelId;
 
-        // Fetch videos from the channel using the channel ID
         const videosResponse = await axios.get(
           `https://www.googleapis.com/youtube/v3/search`,
           {
             params: {
               part: 'snippet',
               channelId: channelId,
-              maxResults: 20, // The number of videos to fetch
-              order: 'date', // Fetch the latest videos
+              maxResults: 20,
+              order: 'date',
               type: 'video',
               key: youtubeApiKey,
             },
           }
         );
 
-        // Extract video details
         const videoList = videosResponse.data.items.map((item) => ({
           id: item.id.videoId,
           url: `https://www.youtube.com/watch?v=${item.id.videoId}`,
@@ -83,76 +86,68 @@ const AboutUs = () => {
     fetchVideos();
   }, [youtubeApiKey]);
 
-  // Function to open YouTube modal
+  // Disable background scroll when a modal is open
+  useEffect(() => {
+    const body = document.body;
+    if (selectedVideo || selectedLyric) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+
+    return () => {
+      body.style.overflow = 'auto';
+    };
+  }, [selectedVideo, selectedLyric]);
+
+  // Modal handlers
   const openYouTubeModal = (video) => {
     setSelectedVideo(video);
   };
 
-  // Function to close YouTube modal
   const closeYouTubeModal = () => {
     setSelectedVideo(null);
   };
 
-  // Carousel navigation functions
+  const openLyricsModal = (song) => {
+    setSelectedLyric(song);
+    setShowSocial(false);
+  };
+
+  const closeLyricsModal = () => setSelectedLyric(null);
+
+  // Carousel navigation
   const handlePrev = () => {
     setTranslateX((prev) => Math.min(prev + 310, 0));
   };
 
   const handleNext = () => {
-    const maxTranslateX = -310 * (videos.length - 1); // Maximum scroll limit
+    const maxTranslateX = -310 * (videos.length - 1);
     setTranslateX((prev) => Math.max(prev - 310, maxTranslateX));
   };
 
   return (
     <Layout>
       <AboutUsContainer>
-        {/* Wikipedia-style Container */}
-        <WikipediaContainer>
-        <WikiImage src="/propic.jpg" alt="About Us" />
-          <Header>About Stino Le Thwenny</Header>
-          
+        {/* Lyrics Section */}
+        <LyricsContainer>
+          <Header>Song Lyrics</Header>
+          <LyricsGrid>
+            {lyrics.map((song) => (
+              <SongTile key={song.id} onClick={() => openLyricsModal(song)}>
+                <SongImage src={song.image} alt={song.title} />
+                <SongInfo>
+                  <h4>{song.title}</h4>
+                  {song.Artist && <p>Artist: {song.Artist}</p>}
+                  {song.feat && <p>Feat. {song.feat}</p>}
+                  
+                </SongInfo>
+              </SongTile>
+            ))}
+          </LyricsGrid>
+        </LyricsContainer>
 
-  <CenteredParagraph>
-    Stino Le Thwenny is a South African hip-hop duo from Bloemfontein, known for our unique blend of Kwaito and hip-hop influences. The group consists of Katlego "Castino the Hero" Semaye and Kanelo "Thwenny" Motaung, who began making music together in 2014.
-  </CenteredParagraph>
-
-  <SectionHeading>Career Highlights</SectionHeading>
-  <UnstyledList>
-    <ListItem>
-      <StrongText>Early Beginnings:</StrongText> We aimed to introduce a new sound to the South African music scene.
-    </ListItem>
-    <ListItem>
-      <StrongText>Breakthrough Collaborations:</StrongText> Collaborations with Khuli Chana, Tyler ICU, and Lady Du on tracks like "Buyile" earned us mainstream recognition. We've also worked with
-      Cassper Nyovest, KO, Maglera Doe Boy, Nadia Nadia, Boity, Dj PH, Roiii, Makwa, Ntate Stunna and Major League Djz.
-    </ListItem>
-    <ListItem>
-      <StrongText>Hit Singles:</StrongText> "Mshimane 2.0," featuring K.O, Khuli Chana, and Major League DJs, received significant acclaim.
-    </ListItem>
-    <ListItem>
-      <StrongText>Debut Album:</StrongText> Released "You Want Some More?" in 2023, featuring collaborations with Maglera Doe Boy.
-    </ListItem>
-  </UnstyledList>
-
-  <SectionHeading>Musical Style</SectionHeading>
-  <Paragraph>
-    Stino Le Thwenny's sound blends South African musical traditions with contemporary hip-hop, creating authentic and resonant music described as "rooted, spiritual, and believable."
-  </Paragraph>
-
-  <SectionHeading>Challenges and Achievements</SectionHeading>
-  <Paragraph>
-    Despite challenges in introducing a new sound and navigating the complexities of the music business, we've achieved significant milestones, including multiple hit songs and collaborations with our idols.
-  </Paragraph>
-
-  <SectionHeading>Contact/Bookings</SectionHeading>
-  <Paragraph>
-    bookstinolethwenny@gmail.com
-    Contact : (071) 299-8297
-    WhatsApp: 072 657 4635
-  </Paragraph>
-
-        </WikipediaContainer>
-
-        {/* Video Carousel */}
+        {/* Video Carousel Section */}
         <Header>Featured Videos</Header>
         <VideoCarouselContainer>
           <YTCarouselButton className="prev" onClick={handlePrev}>
@@ -171,9 +166,43 @@ const AboutUs = () => {
           </YTCarouselButton>
         </VideoCarouselContainer>
 
+        {/* Lyrics Modal */}
+        {selectedLyric && (
+          <LyricsModal onClick={closeLyricsModal} role="dialog" aria-modal="true">
+            <LyricsModalContent onClick={(e) => e.stopPropagation()}>
+              <LyricsHeader>
+                <SongImage src={selectedLyric.image} alt={selectedLyric.title} />
+                <MobileDiv>
+                  <h3>{selectedLyric.title}</h3>
+                  {selectedLyric.Artist && <p>Artist: {selectedLyric.Artist}</p>}
+                  {selectedLyric.feat && <p>Featuring: {selectedLyric.feat}</p>}
+                  <ShareButton onClick={() => setShowSocial(!showSocial)}>
+                    Share {showSocial ? '▲' : '▼'}
+                  </ShareButton>
+                  {showSocial && (
+                    <SocialIcons>
+                      <button>Twitter</button>
+                      <button>Facebook</button>
+                      <button>WhatsApp</button>
+                    </SocialIcons>
+                  )}
+                </MobileDiv>
+              </LyricsHeader>
+              <LyricsBody>
+                {selectedLyric.lyrics.split('\n').map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </LyricsBody>
+              <CloseButton onClick={closeLyricsModal}>X</CloseButton>
+            </LyricsModalContent>
+          </LyricsModal>
+        )}
+
+
+
         {/* YouTube Modal */}
         {selectedVideo && (
-          <YouTubeModal onClick={closeYouTubeModal}>
+          <YouTubeModal onClick={closeYouTubeModal} role="dialog" aria-modal="true">
             <YouTubeModalContent onClick={(e) => e.stopPropagation()}>
               <iframe
                 width="100%"

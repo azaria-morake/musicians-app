@@ -115,9 +115,9 @@ export const NavItemsContainer = styled.div`
 `;
 
 export const NavImage = styled.div`
-  background-image: url('/img-13.jpeg');
+  background-image: url('/img-2.jpg');
   background-size: cover; /* Ensures the image covers the entire container */
-  background-position: center; /* Centers the image */
+  background-position: 70% 13%;
   background-repeat: no-repeat; /* Prevents the image from repeating */
   width: 50%; /* Set a specific width */
   height: 100px; /* Set a specific height */

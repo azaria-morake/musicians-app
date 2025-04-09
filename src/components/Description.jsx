@@ -1,13 +1,16 @@
 import React from 'react';
+import { CenteredParagraph } from './AboutUsStyles';
+
+
 
 const Descriptions = () => {
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+    <div>
       {/* Overview Section */}
-      <div className="text-center mb-6">
-        <p className="mt-2 text-gray-600">
-          Stino Le Thwenny is an award-winning South African hip-hop duo known for their unique blend of Kwaito and hip-hop influences. They have gained significant recognition in the South African music scene, collaborating with prominent artists and releasing popular tracks.
-        </p>
+      <div>
+        <CenteredParagraph>
+        Zee Nxumalo is a Swazi-South African Amapiano singer-songwriter born in 2003. She rose to fame with her 2022 debut EP *KwaNxumalo* and gained further recognition with hits like *Funk 55* and *Ngisakuthanda*. Known for her vibrant sound and growing influence, she has earned award nominations and became a PUMA brand ambassador in 2024.
+        </CenteredParagraph>
       </div>
 
     </div>
