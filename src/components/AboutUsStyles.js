@@ -12,11 +12,13 @@ export const AboutUsContainer = styled.div`
   background-image: url('/intricate-explorer-H0-3xfbU8wk-unsplash.jpg');
   background-size: cover;
   background-position: center;
-  z-index: 1030;
+  z-index: 1000;
+
 
   @media (max-width: 720px) {
     padding: 1rem;
     background-size: 150%;
+    z-index: 1000;
   }
 `;
 
@@ -59,6 +61,7 @@ export const SongImage = styled.img`
 
   @media (max-width: 720px) {
     height: 150px;
+
   }
 `;
 
@@ -89,7 +92,9 @@ export const LyricsModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 9999; // Very high z-index
+  // Make sure it's appended to the document body
+  isolation: isolate; // Creates a new stacking context in modern browsers
 `;
 
 export const LyricsModalContent = styled.div`
@@ -99,11 +104,12 @@ export const LyricsModalContent = styled.div`
   max-height: 90vh;
   overflow-y: auto;
   border-radius: 10px;
-  padding: 20px;
+  padding: 60px;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  z-index: 5000;
 
   /* Custom Scrollbar */
   scrollbar-width: thin;
@@ -131,6 +137,7 @@ export const LyricsModalContent = styled.div`
 export const LyricsBody = styled.div`
   line-height: 1.6;
   padding: 1rem 0;
+  color: white;
   white-space: pre-wrap;
 
   /* Removed max-height and overflow-y to enable unified scrolling */
@@ -141,7 +148,7 @@ export const LyricsBody = styled.div`
 export const MobileDiv = styled.div`
   
   @media (max-width: 720px) {
-  margin: 20px;
+  padding-left: 20px;
 }
   /* Removed max-height and overflow-y to enable unified scrolling */
   /* Custom Scrollbar removed here since parent handles scrolling */
@@ -152,7 +159,6 @@ export const MobileDiv = styled.div`
 export const LyricsHeader = styled.div`
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 2rem;
   background-color: rgb(0, 0, 0);
   border-radius: 5px;
   width: 100%;
@@ -193,14 +199,14 @@ export const LyricsHeader = styled.div`
 `;
 
 
+
 export const ShareButton = styled.button`
-  background: #1da1f2;
+  background: rgb(242, 29, 111);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 1rem;
   transition: opacity 0.2s;
 
   &:hover {
@@ -208,10 +214,36 @@ export const ShareButton = styled.button`
   }
 `;
 
+export const Container = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center; // ensures ShareButton aligns in the middle vertically
+  height: 32px; // match this to the ShareButton height
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 720px) {
+    margin-bottom: 20px;
+  }
+`;
+
+
 export const SocialIcons = styled.div`
+  position: absolute;
+  left: calc(100% + 8px); // directly to the right of the button
+  top: 16%; // center vertically
+  transform: translateY(-50%) translateX(${({ showSocial }) => (showSocial ? '0' : '-20px')});
   display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: 0.5rem;
+  opacity: ${({ showSocial }) => (showSocial ? 1 : 0)};
+  visibility: ${({ showSocial }) => (showSocial ? 'visible' : 'hidden')};
+  transition: all 0.3s ease;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    display: flex;
+  }
 
   button {
     background: transparent;
@@ -219,19 +251,33 @@ export const SocialIcons = styled.div`
     color: white;
     padding: 0.3rem;
     border-radius: 50%;
+    font-size: 20px;
     cursor: pointer;
     width: 32px;
     height: 32px;
     display: grid;
     place-items: center;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    opacity: ${({ showSocial }) => (showSocial ? 1 : 0)};
+    transform: translateX(${({ showSocial }) => (showSocial ? '0' : '-20px')});
 
     &:hover {
       background: white;
       color: black;
     }
+
+    &:nth-child(1) {
+      transition-delay: ${({ showSocial }) => (showSocial ? '0.1s' : '0s')};
+    }
+    &:nth-child(2) {
+      transition-delay: ${({ showSocial }) => (showSocial ? '0.2s' : '0s')};
+    }
+    &:nth-child(3) {
+      transition-delay: ${({ showSocial }) => (showSocial ? '0.3s' : '0s')};
+    }
   }
 `;
+
 
 export const Header = styled.h1`
   font-size: 1.8rem;
@@ -385,7 +431,7 @@ export const YouTubeModalContent = styled.div`
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
+  top: 40px;
   right: 10px;
   background: transparent;
   border: none;

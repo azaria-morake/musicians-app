@@ -60,26 +60,37 @@ export const PageWrapper = styled.div`
 
 export const Wrapper = styled.div`
   background-color: rgba(44, 37, 51, 0.17);
-  background-image: url('/fredy-martinez-ou3fG2zWbcs-unsplash.jpg');
+  background-image: url('/img-16.jpg');
   background-blend-mode: overlay;
   background-size: cover;
-  background-position: center;
+  background-position: 20% 30%;
   padding: 10px 20px;
   border-radius: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between; // Changed from center to space-between
   align-items: center;
   position: sticky;
   width: calc(100% - 40px);
-  z-index: 1013;
+  z-index: 1009;
   margin: 0 auto;
+  overflow: hidden;
 
-  @media (max-width: 720px) {
+  @media (max-width: 992px) {
+    flex-wrap: wrap; // Allow wrapping on tablet
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
     padding: 10px;
     width: calc(100% - 20px);
-    
+    justify-content: center; // Center on mobile
   }
+`;
+
+
+export const MainDiv = styled.div `
+display: flex;
+z-index: 100 ;
 `;
 
 export const Header = styled.h1`
@@ -90,14 +101,6 @@ export const Header = styled.h1`
   z-index: 2;
 `;
 
-export const Navbar = styled.nav`
-  display: flex; // uses a flexbox layout
-  justify-content: flex-end; // Move items to the rightmost
-  align-items: center; // Center items vertically
-  width: 100%; // Full width
-  margin: 0px 0; // Top and bottom margin
-  gap: 20px; // gap between items
-`;
 
 export const NavItemsContainer = styled.div`
   display: flex;
@@ -115,7 +118,7 @@ export const NavItemsContainer = styled.div`
 `;
 
 export const NavImage = styled.div`
-  background-image: url('/img-2.jpg');
+  // background-image: url('/img-2.jpg');
   background-size: cover; /* Ensures the image covers the entire container */
   background-position: 70% 13%;
   background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -159,52 +162,9 @@ export const NavItem = styled.a`
     padding: 5px 20px;
   }
 
-  @media (max-width: 768px) {
-    width: 100%; /* Full width on mobile */
-    margin: 5px 0; /* Adjust margin for mobile */
-    justify-content: flex-start; /* Align text to the left */
-    padding: 10px 20px; /* Increase padding for better touch targets */
-    background-color: rgb(207, 3, 47); /* Ensure background color is consistent */
-    border-radius: 0; /* Remove border radius for a cleaner look */
-    &:hover {
-      background-color: rgb(207, 3, 47); /* Disable hover effect on mobile */
-      color: white; /* Ensure text color remains white */
-    }
-  }
 `;
 
-export const BurgerMenu = styled.div`
-  display: none;
-  @media (max-width: 768px) {
-    display: block;
-    cursor: pointer;
-    z-index: 1009;
-  }
-`;
 
-export const BurgerIcon = styled.div`
-  font-size: 30px;
-  color: white;
-@media (max-width: 720px) {
-  font-size: 80px;
-}
-`;
-
-export const MobileNavItemsContainer = styled.div`
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: ${({ isMenuOpen }) => (isMenuOpen ? '0' : '-100%')};
-    background-color: rgba(44, 37, 51, 0.9);
-    width: 100%;
-    transition: left 0.3s ease;
-    z-index: 1009;
-  }
-`;
 
 
 export const CarouselContainer = styled.div`
@@ -288,13 +248,6 @@ export const CarouselImage = styled.img`
   transition: transform 0.3s ease; 
 `;
 
-export const NavbarImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  gap: 20px;
-`;
 export const CarouselButton = styled.button`
   position: absolute;
   top: 50%;
@@ -530,6 +483,7 @@ export const BurgerButton = styled.button`
 
 export const MobileMenu = styled.div`
   display: none;
+
   
   @media (max-width: 768px) {
     display: flex;
@@ -540,7 +494,9 @@ export const MobileMenu = styled.div`
     width: 250px;
     height: 100vh;
     background-color: rgb(5, 5, 5, 0.8);
-    background-image: url('/bannerpic.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('/img-1.jpg');
+    // background-image: url('/img-1.jpg'); 
     background-size: 100%;
     padding-top: 60px;
     transition: left 0.3s ease;
@@ -548,28 +504,35 @@ export const MobileMenu = styled.div`
   }
 `;
 
-export const MobileNavItem = styled(NavItem)`
-  @media (max-width: 768px) {
-    width: 50%; /* Full width on mobile */
-    margin: 10px 0; /* Adjust margin for mobile */
-    justify-content: flex-start; /* Align text to the left */
-    padding: 10px 20px; /* Increase padding for better touch targets */
-    background-color: rgb(207, 3, 47); /* Ensure background color is consistent */
-    border-radius: 0; /* Remove border radius for a cleaner look */
-    &:hover {
-      background-color: rgb(207, 3, 47); /* Disable hover effect on mobile */
-      color: white; /* Ensure text color remains white */
-    }
-  }
-`;
+export const MobileNavItem = styled.a `
+ color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 5px;
 
-export const NavLogo = styled.img`
-  height: 50px;
-  width: auto;
-  margin: 0 auto;
-  
-  @media (max-width: 768px) {
-    height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(207, 3, 47);
+  height: 30px;
+  width: fit-content;
+  margin: 0 10px;
+
+
+  &:hover {
+    font-weight: 400;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    height: 30px;
+    align-items: center;
+    width: fit-content;
+    padding: 5px 20px;
   }
+    width: 50%; /* Full width on mobile */
+    margin: 10px ;
+
+
+
 `;
 

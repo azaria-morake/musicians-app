@@ -135,6 +135,7 @@ const Homepage = () => {
         <GroupName>Zee Nxumalo</GroupName>
         <Description> <Descriptions /> </Description>
 
+
         <ButtonWrapper>
           <button onClick={() => setStreamModalOpen(true)}>Stream</button>
           <button onClick={() => setFollowModalOpen(true)}>Follow Me</button>
@@ -174,6 +175,14 @@ const Homepage = () => {
     </CarouselModalContent>
   </CarouselModal>
 )}
+        <Description> <p>Bookings: </p> 
+        <p>  ☎️: +27 83 242 9237/+27 78 036 4373
+          
+          📧: Info@kwanxumalo.com</p>
+        
+        </Description>
+        <Description>   
+</Description>
       </PageWrapper>
     </Layout>
   );

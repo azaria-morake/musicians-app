@@ -26,7 +26,10 @@ import {
   ShareButton,
   SocialIcons,
   MobileDiv,
+  Container,
 } from './AboutUsStyles';
+import { FaWhatsappSquare, FaFacebookSquare } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const AboutUs = () => {
   const [videos, setVideos] = useState([]);
@@ -36,7 +39,7 @@ const AboutUs = () => {
   const [showSocial, setShowSocial] = useState(false);
 
   const youtubeApiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
-  const CHANNEL_NAME = 'StinoLeThwenny';
+  const CHANNEL_NAME = 'Zee Nxumalo';
 
   // Fetch videos from YouTube channel
   useEffect(() => {
@@ -147,7 +150,7 @@ const AboutUs = () => {
           </LyricsGrid>
         </LyricsContainer>
 
-        {/* Video Carousel Section */}
+        {/* Video Carousel Section 
         <Header>Featured Videos</Header>
         <VideoCarouselContainer>
           <YTCarouselButton className="prev" onClick={handlePrev}>
@@ -165,42 +168,12 @@ const AboutUs = () => {
             &#8250;
           </YTCarouselButton>
         </VideoCarouselContainer>
-
-        {/* Lyrics Modal */}
-        {selectedLyric && (
-          <LyricsModal onClick={closeLyricsModal} role="dialog" aria-modal="true">
-            <LyricsModalContent onClick={(e) => e.stopPropagation()}>
-              <LyricsHeader>
-                <SongImage src={selectedLyric.image} alt={selectedLyric.title} />
-                <MobileDiv>
-                  <h3>{selectedLyric.title}</h3>
-                  {selectedLyric.Artist && <p>Artist: {selectedLyric.Artist}</p>}
-                  {selectedLyric.feat && <p>Featuring: {selectedLyric.feat}</p>}
-                  <ShareButton onClick={() => setShowSocial(!showSocial)}>
-                    Share {showSocial ? '▲' : '▼'}
-                  </ShareButton>
-                  {showSocial && (
-                    <SocialIcons>
-                      <button>Twitter</button>
-                      <button>Facebook</button>
-                      <button>WhatsApp</button>
-                    </SocialIcons>
-                  )}
-                </MobileDiv>
-              </LyricsHeader>
-              <LyricsBody>
-                {selectedLyric.lyrics.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-              </LyricsBody>
-              <CloseButton onClick={closeLyricsModal}>X</CloseButton>
-            </LyricsModalContent>
-          </LyricsModal>
-        )}
+        */}
 
 
 
-        {/* YouTube Modal */}
+
+        {/* YouTube Modal 
         {selectedVideo && (
           <YouTubeModal onClick={closeYouTubeModal} role="dialog" aria-modal="true">
             <YouTubeModalContent onClick={(e) => e.stopPropagation()}>
@@ -217,7 +190,60 @@ const AboutUs = () => {
             </YouTubeModalContent>
           </YouTubeModal>
         )}
+          */}
       </AboutUsContainer>
+              {/* Lyrics Modal */}
+        {selectedLyric && (
+          <LyricsModal onClick={closeLyricsModal} role="dialog" aria-modal="true">
+            <LyricsModalContent onClick={(e) => e.stopPropagation()}>
+              <LyricsHeader>
+                <SongImage src={selectedLyric.image} alt={selectedLyric.title} />
+                <MobileDiv>
+                  <h3>{selectedLyric.title}</h3>
+                  {selectedLyric.Artist && <p>Artist: {selectedLyric.Artist}</p>}
+                  {selectedLyric.feat && <p>Featuring: {selectedLyric.feat}</p>}
+                  <Container>
+  <ShareButton onClick={() => setShowSocial(!showSocial)}>
+    Share {showSocial ? '▲' : '▼'}
+  </ShareButton>
+<SocialIcons showSocial={showSocial}>
+  <a 
+    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this song: ${selectedLyric?.title}`)}&url=${encodeURIComponent(window.location.href)}`} 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    <button><FaSquareXTwitter /></button>
+  </a>
+  
+  <a 
+    href={`https://www.facebook.com/dialog/share?app_id=3683410795212960&display=popup&href=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}`} 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    <button><FaFacebookSquare /></button>
+  </a>
+  
+  <a 
+    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Check out this song: ${selectedLyric?.title} - ${window.location.href}`)}`} 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    <button><FaWhatsappSquare /></button>
+  </a>
+</SocialIcons>
+</Container>
+                </MobileDiv>
+              </LyricsHeader>
+              <LyricsBody>
+                {selectedLyric.lyrics.split('\n').map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </LyricsBody>
+              <CloseButton onClick={closeLyricsModal}>X</CloseButton>
+            </LyricsModalContent>
+          </LyricsModal>
+        )}
+
     </Layout>
   );
 };
