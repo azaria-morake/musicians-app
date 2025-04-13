@@ -175,7 +175,7 @@ const Layout = ({ children }) => {
                 <Header> | </Header>
                 <NavItem as={Link} to="/">Home</NavItem>
                 <NavItem as={Link} to="/lyrics">Lyrics</NavItem>
-                <NavItem as={Link} to="/upcoming-gigs">Upcoming Gigs</NavItem>
+                {/* <NavItem as={Link} to="/upcoming-gigs">Upcoming Gigs</NavItem> */}
                 <NavItem as={Link} to='/storefront'>Store</NavItem>
               </NavItemsContainer>
             ) : null}
@@ -183,7 +183,7 @@ const Layout = ({ children }) => {
             <MobileMenu $isOpen={isMenuOpen}>
               <MobileNavItem as={Link} to="/" onClick={toggleMenu}>Home</MobileNavItem>
               <MobileNavItem as={Link} to="/lyrics" onClick={toggleMenu}>Lyrics</MobileNavItem>
-              <MobileNavItem as={Link} to="/upcoming-gigs" onClick={toggleMenu}>Upcoming Gigs</MobileNavItem>
+              {/* <MobileNavItem as={Link} to="/upcoming-gigs" onClick={toggleMenu}>Upcoming Gigs</MobileNavItem> */}
               <MobileNavItem as={Link} to="/storefront" onClick={toggleMenu}>Store</MobileNavItem>
             </MobileMenu>
           </Wrapper>
