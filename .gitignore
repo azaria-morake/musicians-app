@@ -35,5 +35,3 @@ yarn-error.log*
 # Optional
 .eslintcache
 .DS_Store
-
-/public
