@@ -131,18 +131,20 @@ const AboutUs = () => {
 
   return (
     <Layout>
+                <Header>Song Lyrics</Header>
       <AboutUsContainer>
         {/* Lyrics Section */}
         <LyricsContainer>
-          <Header>Song Lyrics</Header>
+
           <LyricsGrid>
             {lyrics.map((song) => (
               <SongTile key={song.id} onClick={() => openLyricsModal(song)}>
                 <SongImage src={song.image} alt={song.title} />
                 <SongInfo>
                   <h4>{song.title}</h4>
-                  {song.Artist && <p>Artist: {song.Artist}</p>}
-                  {song.feat && <p>Feat. {song.feat}</p>}
+                  {song.Artist && <p1>Artist: {song.Artist}</p1>}
+                  
+                  <p>{song.feat && <p3>Feat. {song.feat}</p3>}</p>
                   
                 </SongInfo>
               </SongTile>

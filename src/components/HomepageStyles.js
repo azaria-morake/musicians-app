@@ -1,5 +1,16 @@
 import styled, { css, keyframes } from 'styled-components';
 
+const popIn = keyframes`
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
 const slideIn = keyframes`
   from {
     transform: translateX(100%);
@@ -8,6 +19,7 @@ const slideIn = keyframes`
     transform: translateX(0);
   }
 `;
+
 
 export const BackgroundGradient = styled.div` 
   background: rgb(5, 5, 5);
@@ -483,56 +495,72 @@ export const BurgerButton = styled.button`
 
 export const MobileMenu = styled.div`
   display: none;
-
   
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 0;
-    left: ${props => props.$isOpen ? '0' : '-100%'};
-    width: 250px;
-    height: 100vh;
-    background-color: rgb(5, 5, 5, 0.8);
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                url('/img-1.jpg');
-    // background-image: url('/img-1.jpg'); 
-    background-size: 100%;
-    padding-top: 60px;
-    transition: left 0.3s ease;
-    z-index: 1001; // Increased z-index to stay on top
+    top: 180px; /* Adjust based on header height */
+    width: 60%;
+    height: calc(100vh - 80px);
+    background: rgba(5, 5, 5, 1.5);
+    padding: 20px 60px;
+    transform: translateY(-150%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    align-items: center;
+    overflow-y: auto;
+    margin: auto;
+    border-radius: 10px;
+    
+    ${props => props.$isOpen && css`
+      transform: translateY(0);
+    `}
+
+    /* Add noise/texture if desired */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.1;
+      pointer-events: none;
+    }
   }
 `;
 
-export const MobileNavItem = styled.a `
- color: white;
+export const MobileNavItem = styled.a`
+  color: white;
   text-decoration: none;
   font-weight: bold;
-  padding: 5px 15px;
-  border-radius: 5px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(207, 3, 47);
-  height: 30px;
-  width: fit-content;
-  margin: 0 10px;
-
+  padding: 15px 25px;
+  border-radius: 8px;
+  width: 90%;
+  margin: 8px auto;
+  text-align: center;
+  background: rgba(207, 3, 47, 0.9);
+  transform: scale(0.8);
+  opacity: 0;
+  animation: ${popIn} 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transition: all 0.2s ease;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
 
   &:hover {
-    font-weight: 400;
-    background-color: rgb(255, 255, 255);
-    color: black;
-    height: 30px;
-    align-items: center;
-    width: fit-content;
-    padding: 5px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    transform: scale(1.02);
   }
-    width: 50%; /* Full width on mobile */
-    margin: 10px ;
 
-
-
+  @media (max-width: 480px) {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
 `;
 

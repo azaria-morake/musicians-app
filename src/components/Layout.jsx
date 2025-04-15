@@ -183,7 +183,6 @@ const Layout = ({ children }) => {
             <MobileMenu $isOpen={isMenuOpen}>
               <MobileNavItem as={Link} to="/" onClick={toggleMenu}>Home</MobileNavItem>
               <MobileNavItem as={Link} to="/lyrics" onClick={toggleMenu}>Lyrics</MobileNavItem>
-              {/* <MobileNavItem as={Link} to="/upcoming-gigs" onClick={toggleMenu}>Upcoming Gigs</MobileNavItem> */}
               <MobileNavItem as={Link} to="/storefront" onClick={toggleMenu}>Store</MobileNavItem>
             </MobileMenu>
           </Wrapper>

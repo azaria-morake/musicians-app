@@ -16,9 +16,10 @@ export const AboutUsContainer = styled.div`
 
 
   @media (max-width: 720px) {
-    padding: 1rem;
+    padding: 0.5rem;
     background-size: 150%;
     z-index: 1000;
+    top: 80px;
   }
 `;
 
@@ -41,7 +42,9 @@ export const LyricsGrid = styled.div`
   margin-top: 1rem;
 
   @media (max-width: 720px) {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    display: row;
+
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
 `;
 
@@ -60,14 +63,14 @@ export const SongImage = styled.img`
   border-radius: 8px;
 
   @media (max-width: 720px) {
-    height: 150px;
+    height: auto;
 
   }
 `;
 
 export const SongInfo = styled.div`
   padding: 0.5rem;
-  text-align: center;
+  text-align: left;
   color: white;
 
   h4 {
@@ -79,6 +82,42 @@ export const SongInfo = styled.div`
     margin: 0;
     font-size: 0.9rem;
     color: #ccc;
+  }
+
+  @media (max-width: 720px) {
+    padding: 0.5rem;
+    text-align: left;
+    color: white;
+
+    h4 {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+
+    p1 {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'Bebas Neue', sans-serif;
+      color: #ccc;
+      text-align: right;
+    }
+
+    p3 {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'Bebas Neue', sans-serif;
+      color: #ccc;
+      text-align: right;
+    }
   }
 `;
 
@@ -148,7 +187,9 @@ export const LyricsBody = styled.div`
 export const MobileDiv = styled.div`
   
   @media (max-width: 720px) {
-  padding-left: 20px;
+align-items: left;
+padding: 0.5rem;
+
 }
   /* Removed max-height and overflow-y to enable unified scrolling */
   /* Custom Scrollbar removed here since parent handles scrolling */
@@ -164,10 +205,12 @@ export const LyricsHeader = styled.div`
   width: 100%;
 
   @media (max-width: 720px) {
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
-    margin-bottom: auto;
-  }
+    margin: auto;
+    width: 90%;
+    padding: 1rem;
+    }
 
   ${SongImage} {
     width: 150px;
@@ -176,15 +219,18 @@ export const LyricsHeader = styled.div`
 
     @media (max-width: 720px) {
       width: auto;
-      height: auto;
-      max-height: 200px;
-      margin-bottom: 10px;
+      height: 100px;
+      margin: auto;
     }
   }
 
   div {
     flex: 1;
     margin: 10px;
+    @media (max-width: 720px) {
+      margin: 0;
+      padding: 1rem;
+    }
 
     h3 {
       margin: 0 0 0.5rem;
@@ -212,6 +258,12 @@ export const ShareButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
+
+  @media (max-width: 720px) {
+  width: 10rem;
+  position: relative;
+  z-index: 3;
+  }
 `;
 
 export const Container = styled.div`
@@ -230,8 +282,8 @@ export const Container = styled.div`
 
 export const SocialIcons = styled.div`
   position: absolute;
-  left: calc(100% + 8px); // directly to the right of the button
-  top: 16%; // center vertically
+  left: calc(100% + 8px);
+  top: 16%;
   transform: translateY(-50%) translateX(${({ showSocial }) => (showSocial ? '0' : '-20px')});
   display: flex;
   gap: 0.5rem;
@@ -276,12 +328,35 @@ export const SocialIcons = styled.div`
       transition-delay: ${({ showSocial }) => (showSocial ? '0.3s' : '0s')};
     }
   }
+
+  @media (max-width: 720px) {
+    left: 50%;
+    top: 65%;
+    flex-direction: row;
+    transform: translateX(-50%) translateY(${({ showSocial }) => (showSocial ? '10px' : '-20px')});
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+    button {
+      transform: translateY(${({ showSocial }) => (showSocial ? '0' : '-10px')});
+      &:nth-child(1) { transition-delay: ${({ showSocial }) => (showSocial ? '0.1s' : '0s')}; }
+      &:nth-child(2) { transition-delay: ${({ showSocial }) => (showSocial ? '0.2s' : '0s')}; }
+      &:nth-child(3) { transition-delay: ${({ showSocial }) => (showSocial ? '0.3s' : '0s')}; }
+    }
+  }
 `;
 
 
 export const Header = styled.h1`
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  position: absolute;
+  z-index: 1000;
   color: white;
   border-bottom: 1px solid #a2a9b1;
   padding-bottom: 0.5rem;
