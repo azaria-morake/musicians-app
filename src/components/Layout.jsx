@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import styled from 'styled-components';
+import SpotifyEmbed from '../components/SpotifyEmbed';
 
 import {
   Wrapper,
@@ -132,6 +133,7 @@ const Layout = ({ children }) => {
     { component: SpotifyButton, link: "/spotify" },
     { component: AppleButton, link: "/apple-music" }
   ];
+  const embedUrl = "https://open.spotify.com/embed/artist/1dfeR4HaWDbWqFHLkxsg1d?utm_source=generator"; // Replace with your artist/playlist
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
@@ -180,13 +182,16 @@ const Layout = ({ children }) => {
               </NavItemsContainer>
             ) : null}
 
- 
-          </Wrapper>
-          <MobileMenu $isOpen={isMenuOpen}>
+            <MobileMenu $isOpen={isMenuOpen}>
               <MobileNavItem as={Link} to="/" onClick={toggleMenu}>Home</MobileNavItem>
               <MobileNavItem as={Link} to="/lyrics" onClick={toggleMenu}>Lyrics</MobileNavItem>
               <MobileNavItem as={Link} to="/storefront" onClick={toggleMenu}>Store</MobileNavItem>
+              <div style={{ width: '100%', maxWidth: '400px', height: '400px', margin: '0 auto' }}>
+  <SpotifyEmbed />
+</div>
             </MobileMenu>
+          </Wrapper>
+
         </MainDiv>
         {children}
       </BackgroundGradient>

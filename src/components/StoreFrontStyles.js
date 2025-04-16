@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 export const ProductsContainer = styled.div`
-  padding: 2rem;
+
   max-width: 1200px;
   margin: 0 auto;
   font-family: 'Arial', sans-serif;
@@ -12,6 +12,8 @@ export const ProductsContainer = styled.div`
   background-size: contain;
   position: relative;
   z-index: 2;
+  overflow-x: hidden; 
+
 
 `;
 
@@ -20,6 +22,11 @@ export const Header = styled.h1`
   margin-bottom: 1.5rem;
   color: white;
   text-align: center;
+
+  @media  (max-width: 720px) {
+    font-size: 2rem;
+    margin-bottom: 5px;
+  }
 `;
 
 export const ProductsGrid = styled.div`
@@ -27,6 +34,10 @@ export const ProductsGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   padding: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  width: 100%;
+  box-sizing: border-box;
+
 `;
 
 export const ProductCard = styled.div`
@@ -40,6 +51,7 @@ export const ProductCard = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
+
 `;
 
 export const ProductThumbnail = styled.img`
@@ -53,6 +65,7 @@ export const ProductThumbnail = styled.img`
 
 export const ProductDetails = styled.div`
   padding: 1.5rem;
+  margin-top: 1px;
 `;
 
 export const ProductName = styled.h3`
@@ -65,7 +78,7 @@ export const ProductDescription = styled.p`
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 1rem;
-  min-height: 60px;
+  min-height: 10px;
 `;
 
 export const ColorOptions = styled.div`

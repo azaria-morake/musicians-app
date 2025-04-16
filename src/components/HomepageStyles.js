@@ -536,7 +536,7 @@ export const MobileNavItem = styled.a`
   color: white;
   text-decoration: none;
   font-weight: bold;
-  padding: 15px 25px;
+  padding: 15px;
   border-radius: 8px;
   width: 90%;
   margin: 8px auto;
@@ -559,7 +559,7 @@ export const MobileNavItem = styled.a`
   }
 
   @media (max-width: 480px) {
-    padding: 12px 20px;
+    padding: 12px;
     font-size: 0.9rem;
   }
 `;

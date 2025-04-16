@@ -1,7 +1,8 @@
-//Storefront.jsx
+// StoreFront.jsx
 
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
+import Modal from './Modal'; // import the new Modal component
 import {
   ProductsContainer,
   Header,
@@ -14,13 +15,8 @@ import {
   ProductPrice,
   ColorOptions,
   ColorSwatch,
-  ModalOverlay,
-  ModalContent,
-  CloseButton,
-  ModalImage,
-  ModalNavigation,
   ProductThumbnailWrapper,
-  ClickOverlay, 
+  ClickOverlay
 } from './StoreFrontStyles';
 import { PageWrapper } from './HomepageStyles';
 import { UpcomingGigsContainer } from './UpcomingGigsStyles';
@@ -28,39 +24,45 @@ import { UpcomingGigsContainer } from './UpcomingGigsStyles';
 const Products = () => {
   const [selectedColors, setSelectedColors] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
-const [modalProduct, setModalProduct] = useState(null);
-const [modalColorIndex, setModalColorIndex] = useState(0);
+  const [modalProduct, setModalProduct] = useState(null);
+  const [modalColorIndex, setModalColorIndex] = useState(0);
 
-const openModal = (product, index) => {
-  setModalProduct(product);
-  setModalColorIndex(index);
-  setModalOpen(true);
-};
+  const openModal = (product, index) => {
+    setModalProduct(product);
+    setModalColorIndex(index);
+    setModalOpen(true);
+  };
 
-const closeModal = () => {
-  setModalOpen(false);
-  setModalProduct(null);
-};
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalProduct(null);
+  };
 
-const nextColor = () => {
-  setModalColorIndex((prev) => (prev + 1) % modalProduct.colors.length);
-};
+  const nextColor = () => {
+    setModalColorIndex((prev) => (prev + 1) % modalProduct.colors.length);
+  };
 
-const prevColor = () => {
-  setModalColorIndex((prev) => (prev - 1 + modalProduct.colors.length) % modalProduct.colors.length);
-};
+  const prevColor = () => {
+    setModalColorIndex((prev) => (prev - 1 + modalProduct.colors.length) % modalProduct.colors.length);
+  };
 
-useEffect(() => {
-  if (modalOpen) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'auto';
-  }
-}, [modalOpen]);
+  useEffect(() => {
+    const disableScroll = (e) => e.preventDefault();
 
+    if (modalOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.addEventListener('touchmove', disableScroll, { passive: false });
+    } else {
+      document.body.style.overflow = 'auto';
+      document.body.removeEventListener('touchmove', disableScroll);
+    }
 
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.body.removeEventListener('touchmove', disableScroll);
+    };
+  }, [modalOpen]);
 
-  // Sample product data
   const products = [
     {
       id: 1,
@@ -71,7 +73,7 @@ useEffect(() => {
         { name: 'Red', image: '/store/items/img-4.png' },
         { name: 'Blue', image: '/store/items/img-5.png' },
         { name: 'Black', image: '/store/items/img-3.png' },
-         ]
+      ]
     },
     {
       id: 2,
@@ -95,57 +97,59 @@ useEffect(() => {
 
   return (
     <Layout>
-        <UpcomingGigsContainer>        <PageWrapper>
-      <ProductsContainer>
-        <Header>Zee's Collection</Header>
-        <ProductsGrid>
-        {modalOpen && modalProduct && (
-  <ModalOverlay onClick={closeModal}>
-    <ModalContent onClick={(e) => e.stopPropagation()}>
-      <ModalImage src={modalProduct.colors[modalColorIndex].image} alt={modalProduct.name} />
-      <ModalNavigation>
-        <button onClick={prevColor}>←</button>
-        <span>{modalProduct.colors[modalColorIndex].name}</span>
-        <button onClick={nextColor}>→</button>
-      </ModalNavigation>
-    </ModalContent>
-  </ModalOverlay>
-)}
-          {products.map((product) => (
-            <ProductCard key={product.id}>
-<ProductThumbnailWrapper onClick={() => openModal(product, selectedColors[product.id] || 0)}>
-  <ProductThumbnail 
-    src={product.colors[selectedColors[product.id] || 0].image} 
-    alt={product.name} 
-  />
-  <ClickOverlay>Click for full view</ClickOverlay>
-</ProductThumbnailWrapper>
-              <ProductDetails>
-                <ProductName>{product.name}</ProductName>
-                <ProductDescription>{product.description}</ProductDescription>
-                
-                <ColorOptions>
-                  {product.colors.map((color, index) => (
-                    <ColorSwatch 
-                      key={color.name}
-                      onClick={() => handleColorSelect(product.id, index)}
-                      selected={selectedColors[product.id] === index}
-                    >
-                      <img src={color.image} alt={color.name} />
-                    </ColorSwatch>
-                  ))}
-                </ColorOptions>
+      <UpcomingGigsContainer>
+        <PageWrapper>
+          <ProductsContainer>
+            <Header>Zee's Collection</Header>
+            <ProductsGrid>
+              {products.map((product) => (
+                <ProductCard key={product.id}>
+                  <ProductThumbnailWrapper onClick={() => openModal(product, selectedColors[product.id] || 0)}>
+                    <ProductThumbnail 
+                      src={product.colors[selectedColors[product.id] || 0].image} 
+                      alt={product.name} 
+                    />
+                    <ClickOverlay>Click for full view</ClickOverlay>
+                  </ProductThumbnailWrapper>
+                  <ProductDetails>
+                    <ProductName>{product.name}</ProductName>
+                    <ProductDescription>{product.description}</ProductDescription>
+                    <ColorOptions>
+                      {product.colors.map((color, index) => (
+                        <ColorSwatch 
+                          key={color.name}
+                          onClick={() => handleColorSelect(product.id, index)}
+                          selected={selectedColors[product.id] === index}
+                        >
+                          <img src={color.image} alt={color.name} />
+                        </ColorSwatch>
+                      ))}
+                    </ColorOptions>
+                    <ProductPrice onClick={() => {/* Payment integration later */}}>
+                      {product.price}
+                    </ProductPrice>
+                  </ProductDetails>
+                </ProductCard>
+              ))}
+            </ProductsGrid>
+          </ProductsContainer>
+        </PageWrapper>
+      </UpcomingGigsContainer>
 
-                <ProductPrice onClick={() => {/* Payment integration later */}}>
-                  {product.price}
-                </ProductPrice>
-              </ProductDetails>
-            </ProductCard>
-          ))}
-        </ProductsGrid>
-      </ProductsContainer>
-      </PageWrapper>
-    </UpcomingGigsContainer>
+      {modalOpen && modalProduct && (
+        <Modal onClose={closeModal}>
+          <img 
+            src={modalProduct.colors[modalColorIndex].image} 
+            alt={modalProduct.name}
+            style={{ width: '100%', borderRadius: '8px' }}
+          />
+          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <button onClick={prevColor}>←</button>
+            <span>{modalProduct.colors[modalColorIndex].name}</span>
+            <button onClick={nextColor}>→</button>
+          </div>
+        </Modal>
+      )}
     </Layout>
   );
 };
