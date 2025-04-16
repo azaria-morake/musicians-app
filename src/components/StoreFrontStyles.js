@@ -1,3 +1,5 @@
+// StoreFrontStyles.js
+
 import styled from 'styled-components';
 
 export const ProductsContainer = styled.div`
@@ -33,6 +35,7 @@ export const ProductCard = styled.div`
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  position: relative;
 
   &:hover {
     transform: translateY(-5px);
@@ -44,6 +47,8 @@ export const ProductThumbnail = styled.img`
   height: 300px;
   object-fit: cover;
   border-bottom: 1px solid #eee;
+  position: relative;
+  overflow: hidden;
 `;
 
 export const ProductDetails = styled.div`
@@ -103,4 +108,80 @@ export const ProductPrice = styled.button`
   &:hover {
     background: #555;
   }
+`;
+
+
+export const ClickOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+`;
+
+export const ModalImage = styled.img`
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+`;
+
+export const ModalNavigation = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+
+  button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #555;
+    }
+  }
+
+  span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+`;
+
+
+export const ProductThumbnailWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
 `;

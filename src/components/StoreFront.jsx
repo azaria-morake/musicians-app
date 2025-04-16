@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+//Storefront.jsx
+
+import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import {
   ProductsContainer,
@@ -12,12 +14,51 @@ import {
   ProductPrice,
   ColorOptions,
   ColorSwatch,
+  ModalOverlay,
+  ModalContent,
+  CloseButton,
+  ModalImage,
+  ModalNavigation,
+  ProductThumbnailWrapper,
+  ClickOverlay, 
 } from './StoreFrontStyles';
 import { PageWrapper } from './HomepageStyles';
 import { UpcomingGigsContainer } from './UpcomingGigsStyles';
 
 const Products = () => {
   const [selectedColors, setSelectedColors] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+const [modalProduct, setModalProduct] = useState(null);
+const [modalColorIndex, setModalColorIndex] = useState(0);
+
+const openModal = (product, index) => {
+  setModalProduct(product);
+  setModalColorIndex(index);
+  setModalOpen(true);
+};
+
+const closeModal = () => {
+  setModalOpen(false);
+  setModalProduct(null);
+};
+
+const nextColor = () => {
+  setModalColorIndex((prev) => (prev + 1) % modalProduct.colors.length);
+};
+
+const prevColor = () => {
+  setModalColorIndex((prev) => (prev - 1 + modalProduct.colors.length) % modalProduct.colors.length);
+};
+
+useEffect(() => {
+  if (modalOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+}, [modalOpen]);
+
+
 
   // Sample product data
   const products = [
@@ -58,12 +99,27 @@ const Products = () => {
       <ProductsContainer>
         <Header>Zee's Collection</Header>
         <ProductsGrid>
+        {modalOpen && modalProduct && (
+  <ModalOverlay onClick={closeModal}>
+    <ModalContent onClick={(e) => e.stopPropagation()}>
+      <ModalImage src={modalProduct.colors[modalColorIndex].image} alt={modalProduct.name} />
+      <ModalNavigation>
+        <button onClick={prevColor}>←</button>
+        <span>{modalProduct.colors[modalColorIndex].name}</span>
+        <button onClick={nextColor}>→</button>
+      </ModalNavigation>
+    </ModalContent>
+  </ModalOverlay>
+)}
           {products.map((product) => (
             <ProductCard key={product.id}>
-              <ProductThumbnail 
-                src={product.colors[selectedColors[product.id] || 0].image} 
-                alt={product.name} 
-              />
+<ProductThumbnailWrapper onClick={() => openModal(product, selectedColors[product.id] || 0)}>
+  <ProductThumbnail 
+    src={product.colors[selectedColors[product.id] || 0].image} 
+    alt={product.name} 
+  />
+  <ClickOverlay>Click for full view</ClickOverlay>
+</ProductThumbnailWrapper>
               <ProductDetails>
                 <ProductName>{product.name}</ProductName>
                 <ProductDescription>{product.description}</ProductDescription>

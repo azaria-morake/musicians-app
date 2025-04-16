@@ -27,6 +27,7 @@ import {
   SocialIcons,
   MobileDiv,
   Container,
+  VertContainer,
 } from './AboutUsStyles';
 import { FaWhatsappSquare, FaFacebookSquare } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -144,7 +145,7 @@ const AboutUs = () => {
                   <h4>{song.title}</h4>
                   {song.Artist && <p1>Artist: {song.Artist}</p1>}
                   
-                  <p>{song.feat && <p3>Feat. {song.feat}</p3>}</p>
+                {/*  <p>{song.feat && <p3>Feat. {song.feat}</p3>}</p> */}
                   
                 </SongInfo>
               </SongTile>
@@ -201,9 +202,11 @@ const AboutUs = () => {
               <LyricsHeader>
                 <SongImage src={selectedLyric.image} alt={selectedLyric.title} />
                 <MobileDiv>
+                  <div>
                   <h3>{selectedLyric.title}</h3>
-                  {selectedLyric.Artist && <p>Artist: {selectedLyric.Artist}</p>}
+                  {selectedLyric.Artist && <p2>Artist: {selectedLyric.Artist}</p2>}
                   {selectedLyric.feat && <p>Featuring: {selectedLyric.feat}</p>}
+                  </div>
                   <Container>
   <ShareButton onClick={() => setShowSocial(!showSocial)}>
     Share {showSocial ? '▲' : '▼'}

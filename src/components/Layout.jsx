@@ -180,12 +180,13 @@ const Layout = ({ children }) => {
               </NavItemsContainer>
             ) : null}
 
-            <MobileMenu $isOpen={isMenuOpen}>
+ 
+          </Wrapper>
+          <MobileMenu $isOpen={isMenuOpen}>
               <MobileNavItem as={Link} to="/" onClick={toggleMenu}>Home</MobileNavItem>
               <MobileNavItem as={Link} to="/lyrics" onClick={toggleMenu}>Lyrics</MobileNavItem>
               <MobileNavItem as={Link} to="/storefront" onClick={toggleMenu}>Store</MobileNavItem>
             </MobileMenu>
-          </Wrapper>
         </MainDiv>
         {children}
       </BackgroundGradient>

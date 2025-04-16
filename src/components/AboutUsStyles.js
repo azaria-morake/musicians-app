@@ -4,6 +4,7 @@ export const AboutUsContainer = styled.div`
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  top: 80px;
   font-family: 'Helvetica';
   line-height: 1.6;
   color: rgb(216, 220, 224);
@@ -35,6 +36,8 @@ export const LyricsContainer = styled.div`
   }
 `;
 
+// In your AboutUsStyles.js
+
 export const LyricsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -42,17 +45,39 @@ export const LyricsGrid = styled.div`
   margin-top: 1rem;
 
   @media (max-width: 720px) {
-    display: row;
-
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0.5rem;
   }
 `;
 
 export const SongTile = styled.div`
   cursor: pointer;
   transition: transform 0.2s;
+  
   &:hover {
     transform: scale(1.05);
+  }
+
+  @media (max-width: 720px) {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.79);
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    //border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:hover {
+      transform: none;
+      background: rgba(14, 14, 14, 0.7);
+    }
   }
 `;
 
@@ -63,67 +88,56 @@ export const SongImage = styled.img`
   border-radius: 8px;
 
   @media (max-width: 720px) {
-    height: auto;
-
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    border-radius: 4px;
   }
 `;
 
 export const SongInfo = styled.div`
   padding: 0.5rem;
-  text-align: left;
+  text-align: center;
   color: white;
 
   h4 {
     margin: 0.5rem 0;
     font-size: 1.1rem;
-  }
-
-  p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #ccc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   @media (max-width: 720px) {
-    padding: 0.5rem;
+    padding: 0;
     text-align: left;
-    color: white;
+    flex-grow: 1;
+    min-width: 0;
 
     h4 {
-      margin: 0.5rem 0;
+      margin: 0;
       font-size: 1rem;
-      background: rgba(0, 0, 0, 0.5);
+      background: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    p {
+    p, p1, p3 {
+      
+      font-size: 12px;
       margin: 0;
-      font-size: 0.8rem;
-      color: #ccc;
-    }
-
-    p1 {
-      margin: 0;
-      font-size: 10px;
-      font-weight: 600;
-      font-family: 'Bebas Neue', sans-serif;
-      color: #ccc;
-      text-align: right;
-    }
-
-    p3 {
-      margin: 0;
-      font-size: 10px;
-      font-weight: 600;
-      font-family: 'Bebas Neue', sans-serif;
-      color: #ccc;
-      text-align: right;
+      color: #888;
+      white-space: wrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;
 
 export const LyricsModal = styled.div`
   position: fixed;
-  top: 0;
+  top: 40px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -175,9 +189,12 @@ export const LyricsModalContent = styled.div`
 
 export const LyricsBody = styled.div`
   line-height: 1.6;
-  padding: 1rem 0;
+  padding: 0rem 0;
   color: white;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  margin: 0 0 0 20px;
 
   /* Removed max-height and overflow-y to enable unified scrolling */
   /* Custom Scrollbar removed here since parent handles scrolling */
@@ -185,14 +202,52 @@ export const LyricsBody = styled.div`
 
 
 export const MobileDiv = styled.div`
-  
   @media (max-width: 720px) {
-align-items: left;
-padding: 0.5rem;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    //gap: 12px;  
+    align-items: flex-start;
+    
+    > div:first-child { // Text content wrapper
+      width: 100%;
+      h3 {
+        margin:0;
+        font-size: 1.3rem;
+        line-height: 1;
+        color: white;
+      }
+      p {
+        font-size: 0.6rem;
+        color: #888;
+        margin: 0 0 8px 0;
+      }
+      p2 {
+        font-size: 0.9rem;
+        color: #888;
+        font-weight: bold;
+        line-height: 2;
 
-}
-  /* Removed max-height and overflow-y to enable unified scrolling */
-  /* Custom Scrollbar removed here since parent handles scrolling */
+      }
+    }
+  }
+`;
+
+export const Container = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 720px) {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+  }
 `;
 
 
@@ -203,6 +258,8 @@ export const LyricsHeader = styled.div`
   background-color: rgb(0, 0, 0);
   border-radius: 5px;
   width: 100%;
+
+
 
   @media (max-width: 720px) {
     flex-direction: row;
@@ -229,17 +286,25 @@ export const LyricsHeader = styled.div`
     margin: 10px;
     @media (max-width: 720px) {
       margin: 0;
-      padding: 1rem;
+
     }
 
     h3 {
       margin: 0 0 0.5rem;
       font-size: 1.5rem;
+      color: white;
     }
 
     p {
       color: #888;
       margin: 0;
+    }
+
+    p2 {
+      color: #888;
+      margin: 0;
+      font-weight: 700;
+      line-height: 3;
     }
   }
 `;
@@ -262,22 +327,12 @@ export const ShareButton = styled.button`
   @media (max-width: 720px) {
   width: 10rem;
   position: relative;
+  margin-top:0;
   z-index: 3;
   }
 `;
 
-export const Container = styled.div`
-  position: relative;
-  display: inline-flex;
-  align-items: center; // ensures ShareButton aligns in the middle vertically
-  height: 32px; // match this to the ShareButton height
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
 
-  @media (max-width: 720px) {
-    margin-bottom: 20px;
-  }
-`;
 
 
 export const SocialIcons = styled.div`
@@ -331,7 +386,7 @@ export const SocialIcons = styled.div`
 
   @media (max-width: 720px) {
     left: 50%;
-    top: 65%;
+    top: 100%;
     flex-direction: row;
     transform: translateX(-50%) translateY(${({ showSocial }) => (showSocial ? '10px' : '-20px')});
     align-items: center;
@@ -506,13 +561,19 @@ export const YouTubeModalContent = styled.div`
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 40px;
+  top: 10px;
   right: 10px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.8);
   border: none;
-  color: #fff;
-  font-size: 24px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
   cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CenteredParagraph = styled.p`
@@ -524,4 +585,18 @@ export const CenteredParagraph = styled.p`
   @media (max-width: 720px) {
     margin-bottom: 1.5rem;
   }
+`;
+
+export const VertContainer = styled.div `
+  display: flex;
+  //flex-direction: column;
+  align-items: center;
+  //justify-content: center;
+  //gap: 1rem;
+  padding: 16px;
+
+  //@media (max-width: 720px) {
+  //  margin-top: 1rem;
+  //  gap: 0.5rem;
+  //}
 `;
