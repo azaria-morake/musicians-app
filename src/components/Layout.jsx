@@ -187,8 +187,21 @@ const Layout = ({ children }) => {
               <MobileNavItem as={Link} to="/lyrics" onClick={toggleMenu}>Lyrics</MobileNavItem>
               <MobileNavItem as={Link} to="/storefront" onClick={toggleMenu}>Store</MobileNavItem>
               <div style={{ width: '100%', maxWidth: '400px', height: '400px', margin: '0 auto' }}>
-  <SpotifyEmbed />
-</div>
+                <SpotifyEmbed />
+              </div>
+
+                          <PromoRow>
+              {promoItems.map((item, index) => {
+                const ItemComponent = item.component;
+                return (
+                  <ItemComponent
+                    key={index}
+                    onClick={() => (window.location.href = item.link)}
+                  />
+                );
+              })}
+            </PromoRow>
+
             </MobileMenu>
           </Wrapper>
 

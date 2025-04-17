@@ -501,7 +501,7 @@ export const MobileMenu = styled.div`
     flex-direction: column;
     position: fixed;
     top: 180px; /* Adjust based on header height */
-    width: 60%;
+    width: 64%;
     height: calc(100vh - 80px);
     background: rgba(5, 5, 5, 1.5);
     padding: 20px 60px;
@@ -538,8 +538,8 @@ export const MobileNavItem = styled.a`
   font-weight: bold;
   padding: 15px;
   border-radius: 8px;
-  width: 90%;
-  margin: 8px auto;
+  width: 100%;
+  margin: 8px;
   text-align: center;
   background: rgba(207, 3, 47, 0.9);
   transform: scale(0.8);

@@ -5,9 +5,10 @@ export const EmbedContainer = styled.div`
   position: relative;
   width: 100%;
   padding-top: 100%; /* 1:1 Aspect Ratio */
+  height: 60%;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
   margin-top: 20px;
 
   @media (max-width: 720px) {
