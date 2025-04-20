@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import { motion } from 'framer-motion';
 
 const popIn = keyframes`
   0% {
@@ -56,6 +57,8 @@ opacity: 100%;
 export const PageWrapper = styled.div`
   text-align: center;
   font-family: 'Arial', sans-serif;
+  align-items: center;
+  justify-content: center;
     &::before {
     content: '';
     position: absolute;
@@ -321,7 +324,7 @@ export const ButtonWrapper = styled.div`
   z-index: 3;
 
   button {
-    background-color: rgb(207, 3, 47);
+    background: rgba(173, 173, 173, 0.2);;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -501,7 +504,7 @@ export const MobileMenu = styled.div`
     flex-direction: column;
     position: fixed;
     top: 180px; /* Adjust based on header height */
-    width: 64%;
+    width: 65%;
     height: calc(100vh - 80px);
     background: rgba(5, 5, 5, 1.5);
     padding: 20px 60px;
@@ -517,7 +520,7 @@ export const MobileMenu = styled.div`
       transform: translateY(0);
     `}
 
-    /* Add noise/texture if desired */
+    /* noise/texture */
     &::before {
       content: '';
       position: absolute;
@@ -564,3 +567,54 @@ export const MobileNavItem = styled.a`
   }
 `;
 
+// Booking card styles
+
+// Update these specific styling components in your HomepageStyles.js file:
+
+export const BookingsCard = styled.div`
+  background: rgba(173, 173, 173, 0.1);;
+  border-radius: 5px;
+  padding: 1rem;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  width: 90%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2000;
+  text-align: left;
+  
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+`;
+
+export const BookingHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+`;
+
+export const BookingTitle = styled.h3`
+  font-size: 1.25rem;
+  margin: 0;
+  color: white;
+`;
+
+export const Underliner = styled.div `
+
+border-bottom: 1px solid rgb(255, 255, 255);
+margin: 20px;
+
+`;
+
+export const BookingDetails = styled(motion.div)`
+  color: white;
+  overflow: hidden;
+  
+  p {
+    margin: 0.5rem 0;
+  }
+`;

@@ -8,8 +8,6 @@ const SpotifyEmbed = () => {
       <EmbedContainer>
         <StyledIframe
           src="https://open.spotify.com/embed/artist/5m5lgddffBHA2pv0m5E2Ro?utm_source=generator"
-          width="100%"
-          height="100%"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         />

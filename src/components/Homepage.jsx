@@ -17,8 +17,16 @@ import {
   FullSizeImage,
   CarouselModal,
   CarouselModalContent,
+  BookingsCard,
+  BookingHeader,
+  BookingTitle,
+  BookingDetails,
+  Underliner,
 } from './HomepageStyles';
 import Descriptions from './Description';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 const Homepage = () => {
   const [isStreamModalOpen, setStreamModalOpen] = useState(false);
@@ -28,6 +36,8 @@ const Homepage = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null); // State for full-size image
   const carouselRef = useRef(null);
+  const [showBookings, setShowBookings] = useState(false);
+
 
   const isMobile = window.innerWidth <= 768;
   const imageWidth = isMobile ? window.innerWidth - 80 : 310; // Adjust width for mobile
@@ -175,14 +185,30 @@ const Homepage = () => {
     </CarouselModalContent>
   </CarouselModal>
 )}
-        <Description> <p>Bookings: </p> 
-        <p>  ☎️: +27 83 242 9237/+27 78 036 4373
-          
-          📧: Info@kwanxumalo.com</p>
-        
-        </Description>
+
+
         <Description>   
 </Description>
+<BookingsCard onClick={() => setShowBookings(!showBookings)}>
+  <BookingHeader>
+    <BookingTitle>Bookings</BookingTitle>
+    {showBookings ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
+  </BookingHeader>
+  <AnimatePresence>
+    {showBookings && (
+      <BookingDetails
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: 'auto' }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ duration: 0.4, ease: 'easeInOut' }}
+      >
+        <Underliner/>
+        <p>☎️: +27 83 242 9237 / +27 78 036 4373</p>
+        <p>📧: info@kwanxumalo.com</p>
+      </BookingDetails>
+    )}
+  </AnimatePresence>
+  </BookingsCard>
       </PageWrapper>
     </Layout>
   );

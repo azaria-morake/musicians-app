@@ -1,6 +1,6 @@
 // StoreFront.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Layout from './Layout';
 import Modal from './Modal'; // import the new Modal component
 import {
@@ -18,6 +18,15 @@ import {
   ProductThumbnailWrapper,
   ClickOverlay
 } from './StoreFrontStyles';
+import {
+  BookingsCard,
+  BookingHeader,
+  BookingTitle,
+  BookingDetails,
+} from './HomepageStyles';
+
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PageWrapper } from './HomepageStyles';
 import { UpcomingGigsContainer } from './UpcomingGigsStyles';
 
@@ -26,7 +35,8 @@ const Products = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
   const [modalColorIndex, setModalColorIndex] = useState(0);
-
+  const [showBookings, setShowBookings] = useState(false);
+  
   const openModal = (product, index) => {
     setModalProduct(product);
     setModalColorIndex(index);
@@ -150,6 +160,26 @@ const Products = () => {
           </div>
         </Modal>
       )}
+
+      <BookingsCard onClick={() => setShowBookings(!showBookings)}>
+        <BookingHeader>
+          <BookingTitle>Bookings</BookingTitle>
+          {showBookings ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
+        </BookingHeader>
+        <AnimatePresence>
+          {showBookings && (
+            <BookingDetails
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+            >
+              <p>☎️: +27 83 242 9237 / +27 78 036 4373</p>
+              <p>📧: info@kwanxumalo.com</p>
+            </BookingDetails>
+          )}
+        </AnimatePresence>
+        </BookingsCard>
     </Layout>
   );
 };

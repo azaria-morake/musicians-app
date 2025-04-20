@@ -3,16 +3,18 @@ import styled from 'styled-components';
 
 export const EmbedContainer = styled.div`
   position: relative;
-  width: 100%;
-  padding-top: 100%; /* 1:1 Aspect Ratio */
-  height: 60%;
+  width: 100%; // previously 100%
+  // padding-top: 100%; /* 1:1 Aspect Ratio */
+  height: 152px; // previously 60%
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-  margin-top: 20px;
+  margin: 8px 0; // To match spacing between menu items
+
 
   @media (max-width: 720px) {
-    width: 100%;
+   // width: 270px;
+    height: 152px;
   }
 `;
 
@@ -24,6 +26,7 @@ export const StyledIframe = styled.iframe`
   width: 100%;
   height: 100%;
   border-radius: 6px;
+  display: block;
 
   @media (max-width: 720px) {
     width: 100%;
@@ -32,7 +35,7 @@ export const StyledIframe = styled.iframe`
 
 export const SpotifyWrapper = styled.div`
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
   //height: 400px;
   margin: 0 auto;
 
