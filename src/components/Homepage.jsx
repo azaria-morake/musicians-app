@@ -22,6 +22,7 @@ import {
   BookingTitle,
   BookingDetails,
   Underliner,
+  InnerCard,
 } from './HomepageStyles';
 import Descriptions from './Description';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
@@ -37,7 +38,7 @@ const Homepage = () => {
   const [selectedImage, setSelectedImage] = useState(null); // State for full-size image
   const carouselRef = useRef(null);
   const [showBookings, setShowBookings] = useState(false);
-
+  const bookingsRef = useRef(null);
 
   const isMobile = window.innerWidth <= 768;
   const imageWidth = isMobile ? window.innerWidth - 80 : 310; // Adjust width for mobile
@@ -51,6 +52,24 @@ const Homepage = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    if (showBookings && bookingsRef.current) {
+      const timeout = setTimeout(() => {
+        const top = bookingsRef.current.getBoundingClientRect().top + window.scrollY;
+        const offset = 100; // Adjust this number to get the spacing you want
+  
+        window.scrollTo({
+          top: top - offset,
+          behavior: 'smooth',
+        });
+      }, 450); // Wait for the animation to complete
+  
+      return () => clearTimeout(timeout);
+    }
+  }, [showBookings]);
+  
+  
 
   const images = [
     '/img-0.jpg',
@@ -189,7 +208,7 @@ const Homepage = () => {
 
         <Description>   
 </Description>
-<BookingsCard onClick={() => setShowBookings(!showBookings)}>
+<BookingsCard ref={bookingsRef} onClick={() => setShowBookings(!showBookings)}>
   <BookingHeader>
     <BookingTitle>Bookings</BookingTitle>
     {showBookings ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
@@ -203,8 +222,10 @@ const Homepage = () => {
         transition={{ duration: 0.4, ease: 'easeInOut' }}
       >
         <Underliner/>
+        <InnerCard>
         <p>☎️: +27 83 242 9237 / +27 78 036 4373</p>
         <p>📧: info@kwanxumalo.com</p>
+        </InnerCard>
       </BookingDetails>
     )}
   </AnimatePresence>

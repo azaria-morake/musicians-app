@@ -578,16 +578,44 @@ export const BookingsCard = styled.div`
 
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   cursor: pointer;
-  width: 90%;
+  width: 100%;
+  max-width: 600px; 
   overflow: hidden;
   transition: all 0.3s ease;
   position: relative;
   z-index: 2000;
   text-align: left;
+  margin-left: auto;
+  margin-right: auto;
   
   &:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+`;
+
+export const InnerCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  width: 80%;
+  //max-width: 600px; 
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2000;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const BookingHeader = styled.div`
